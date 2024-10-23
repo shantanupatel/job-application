@@ -41,7 +41,7 @@ public class CompanyController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Company> findCompanyByid(@PathVariable Long id) {
+	public ResponseEntity<Company> getCompanyByid(@PathVariable Long id) {
 
 		Company foundCompany = companyService.getCompanyById(id);
 
@@ -54,11 +54,11 @@ public class CompanyController {
 	}
 
 	@DeleteMapping("/{id}")
-	 public ResponseEntity<String> deleteCompanyById(@PathVariable Long id) {
-	 companyService.deleteCompanyById(id);
+	public ResponseEntity<String> deleteCompanyById(@PathVariable Long id) {
+		companyService.deleteCompanyById(id);
 
 		return new ResponseEntity<>("Company with id " + id + " deleted successfully", HttpStatus.OK);
-	 }
+	}
 
 
 	@PutMapping("/{id}")
