@@ -2,8 +2,10 @@ package com.job_application.company;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.job_application.job.Job;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +22,9 @@ public class Company {
 	private String name;
 	private String description;
 
-	@OneToMany
+	// JsonIgnore will remove recursive callbacks (infinite loop)
+	@JsonIgnore
+	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
 	private List<Job> jobs;
 
 	// private List<Review> reviews;
