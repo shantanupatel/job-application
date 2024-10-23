@@ -37,7 +37,7 @@ public class JobServiceimpl implements JobService {
 
 	@Override
 	public void deleteJobById(Long id) {
-		Job job = jobRepository.findById(id)
+		jobRepository.findById(id)
 				.orElseThrow(() -> new IdNotFoundException("Job with provided id " + id + " not found"));
 
 		jobRepository.deleteById(id);
@@ -56,6 +56,7 @@ public class JobServiceimpl implements JobService {
 			job.setMinSalary(updatedJob.getMinSalary());
 			job.setMaxSalary(updatedJob.getMaxSalary());
 			job.setLocation(updatedJob.getLocation());
+			job.setCompany(updatedJob.getCompany());
 
 			jobRepository.save(job);
 

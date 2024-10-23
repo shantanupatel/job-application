@@ -2,10 +2,13 @@ package com.job_application.job;
 
 import java.math.BigDecimal;
 
+import com.job_application.company.Company;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Job {
@@ -19,6 +22,9 @@ public class Job {
 	private BigDecimal minSalary;
 	private BigDecimal maxSalary;
 	private String location;
+
+	@ManyToOne
+	private Company company;
 
 	public Job() {
 		super();
@@ -80,6 +86,14 @@ public class Job {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 }
