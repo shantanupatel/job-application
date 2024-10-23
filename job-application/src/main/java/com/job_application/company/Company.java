@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.job_application.job.Job;
+import com.job_application.review.Review;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,7 +28,9 @@ public class Company {
 	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
 	private List<Job> jobs;
 
-	// private List<Review> reviews;
+	@JsonIgnore
+	@OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
+	private List<Review> reviews;
 
 	public Company() {
 		super();
@@ -71,6 +74,14 @@ public class Company {
 
 	public void setJobs(List<Job> jobs) {
 		this.jobs = jobs;
+	}
+
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 }
