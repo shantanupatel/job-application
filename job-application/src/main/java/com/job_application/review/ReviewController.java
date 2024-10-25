@@ -30,15 +30,15 @@ public class ReviewController {
 	}
 
 	@PostMapping
-	public ResponseEntity<String> createReview(@RequestBody Review review) {
-		reviewService.createReview(review);
+	public ResponseEntity<String> createReview(@PathVariable Long companyId, @RequestBody Review review) {
+		reviewService.createReview(companyId, review);
 
-		return new ResponseEntity<>("Review created successfully", HttpStatus.CREATED);
+		return new ResponseEntity<>("Review added successfully", HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{reviewId}")
-	public ResponseEntity<Review> getReviewById(@PathVariable Long reviewId) {
-		Review foundReview = reviewService.getReviewById(reviewId);
+	public ResponseEntity<Review> getReviewById(@PathVariable Long companyId, @PathVariable Long reviewId) {
+		Review foundReview = reviewService.getReviewById(companyId, reviewId);
 
 		if (foundReview != null) {
 			return new ResponseEntity<>(foundReview, HttpStatus.OK);
@@ -49,15 +49,26 @@ public class ReviewController {
 	}
 
 	@DeleteMapping("/{reviewId}")
-	public ResponseEntity<String> deleteReviewById(@PathVariable Long reviewId) {
-		reviewService.deleteReviewById(reviewId);
+	public ResponseEntity<String> deleteReviewById(@PathVariable Long companyId, @PathVariable Long reviewId) {
+		// reviewService.deleteReviewById(reviewId);
+		//
+		// return new ResponseEntity<>("Review with id " + reviewId + " deleted
+		// successfully", HttpStatus.OK);
 
-		return new ResponseEntity<>("Review with id " + reviewId + " deleted successfully", HttpStatus.OK);
+		boolean isReviewDeleted = reviewService.deleteReviewById(companyId, reviewId);
+
+		if (isReviewDeleted) {
+			return new ResponseEntity<>("Review with id " + reviewId + " deleted successfully", HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>("Review with id " + reviewId + " not found", HttpStatus.NOT_FOUND);
+
 	}
 
 	@PutMapping("/{reviewId}")
-	public ResponseEntity<String> updateReviewById(@PathVariable Long reviewId, @RequestBody Review review) {
-		Boolean isUpdated = reviewService.updateReview(reviewId, review);
+	public ResponseEntity<String> updateReviewById(@PathVariable Long companyId, @PathVariable Long reviewId,
+			@RequestBody Review review) {
+		Boolean isUpdated = reviewService.updateReview(companyId, reviewId, review);
 
 		if (isUpdated) {
 			return new ResponseEntity<>("Review with id " + reviewId + " updated successfully.", HttpStatus.OK);

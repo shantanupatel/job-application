@@ -1,5 +1,6 @@
 package com.job_application.review;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.job_application.company.Company;
 
 import jakarta.persistence.Entity;
@@ -21,6 +22,7 @@ public class Review {
 
 	private double rating;
 
+	@JsonIgnore
 	@ManyToOne
 	private Company company;
 
